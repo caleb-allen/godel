@@ -5,5 +5,5 @@ package main
  *
  */
 class CharEncoding: GodelEncoding<Char>() {
-    override fun index(element: Char): Long = element.toLong()
+    override fun index(element: Char): Int = element.toInt()
 }
