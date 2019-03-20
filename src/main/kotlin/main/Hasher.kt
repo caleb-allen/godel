@@ -1,3 +1,5 @@
+package main
+
 interface GodelHash {
     fun divisibleBy(hash: GodelHash): Boolean
 }

@@ -1,6 +1,7 @@
+package main
+
 interface PrimeMap {
-    fun prime(i: Word)
+    fun prime(i: Int): Int
     // probabalistic primality test
 }
 
-interface Word

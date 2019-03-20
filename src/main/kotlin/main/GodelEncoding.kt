@@ -1,3 +1,5 @@
+package main
+
 abstract class GodelEncoding<T> {
 //    /**
 //     * retrieve the prime number of set [T] which perfectly represents [element]
