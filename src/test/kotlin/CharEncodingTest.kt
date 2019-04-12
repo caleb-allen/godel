@@ -113,11 +113,9 @@ class CharEncodingTest {
 //            BigInteger.valueOf(subHash.toLong())
 //                .times(BigInteger.valueOf(endHash.toLong()))
 //        )
-        //TODO WHAT IS GOING ON HERE
-        //TODO use BigInteger
         assertEquals(subHash, totalHash / endHash)
         assertTrue {
-            totalHash.rem(subHash) == 0
+            totalHash.rem(subHash) == 0L
         }
 
     }
@@ -128,6 +126,7 @@ class CharEncodingTest {
         val word = "large"
 
         val hash = wordEncoding.encode(word.asIterable())
+
 
         assertFalse {
             wordEncoding.contains(hash, 'i')
