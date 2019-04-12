@@ -1,6 +1,7 @@
 import main.CharDomain
 import main.GodelEncoding
 import org.junit.Test
+import java.math.BigInteger
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -75,16 +76,49 @@ class CharEncodingTest {
             wordEncoding.encode(it)
         }
 
-        var totalHash: Int = 1
-        val hashChars = charsHashes.forEach {
-            totalHash *= it
+        var totalHash = 1L
+        charsHashes.forEach {
+            println("Hash: $totalHash -- New: $it")
+            totalHash = Math.multiplyExact(totalHash, it.toLong())
         }
 
-        val hash: Int = wordEncoding.encode("large".asIterable())
+        val hash: Long = wordEncoding.encode("large".asIterable())
 
         assertEquals(hash, totalHash)
 
         assertEquals(wordEncoding.encode('h'), wordEncoding.encode("h".asIterable()))
+
+
+        // hash of 'lar'
+        var subHash = 1L
+        charsHashes.subList(0, 3).map {
+//            subHash *= it
+            subHash = Math.multiplyExact(subHash, it)
+        }
+        // hash of 'lar'
+        var endHash = 1L
+        charsHashes.subList(3, 5).map {
+//            endHash *= it
+            endHash = Math.multiplyExact(endHash, it)
+        }
+
+        println("total: $totalHash")
+        println("sub $subHash end $endHash")
+        println("sub * end: ${Math.multiplyExact(subHash, endHash)}")
+//        assertEquals(totalHash, subHash * endHash)
+        assertEquals(totalHash, Math.multiplyExact(subHash, endHash))
+        assertEquals(endHash, totalHash / subHash)
+//        assertEquals(
+//            BigInteger.valueOf(totalHash.toLong()),
+//            BigInteger.valueOf(subHash.toLong())
+//                .times(BigInteger.valueOf(endHash.toLong()))
+//        )
+        //TODO WHAT IS GOING ON HERE
+        //TODO use BigInteger
+        assertEquals(subHash, totalHash / endHash)
+        assertTrue {
+            totalHash.rem(subHash) == 0
+        }
 
     }
     @Test
