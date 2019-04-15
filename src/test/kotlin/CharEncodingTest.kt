@@ -1,7 +1,5 @@
-import main.CharDomain
-import main.GodelEncoding
+import main.*
 import org.junit.Test
-import java.math.BigInteger
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -9,19 +7,17 @@ import kotlin.test.assertTrue
 class CharEncodingTest {
     @Test
     fun charIndexTest(){
-        val e = CharDomain()
-        assertEquals(65, e.index('A'))
-        assertEquals(101, e.index('e'))
-        assertEquals(33, e.index('!'))
+        val e = UtfCharDomain()
+        assertEquals(65, e.encode('A'))
+        assertEquals(101, e.encode('e'))
+        assertEquals(33, e.encode('!'))
     }
 
 
     @Test
     fun charEncodingTest(){
-        val charEncoding = GodelEncoding(CharDomain())
+        val charEncoding = GodelEncoding(SimpleCharDomain())
 
-        val sample = charEncoding.encode('A')
-        println(sample)
         val hello = "hello"
         hello.forEach {
             println("$it: ${charEncoding.encode(it)}")
@@ -32,7 +28,7 @@ class CharEncodingTest {
 
     @Test
     fun wordEncodingTest(){
-        val wordEncoding = GodelEncoding(CharDomain())
+        val wordEncoding = GodelEncoding(SimpleCharDomain())
 
         val word = "hello"
 
@@ -42,7 +38,7 @@ class CharEncodingTest {
 
     @Test
     fun wordContainsCharTest(){
-        val wordEncoding = GodelEncoding(CharDomain())
+        val wordEncoding = GodelEncoding(SimpleCharDomain())
 
         val word = "hi"
 
@@ -62,7 +58,7 @@ class CharEncodingTest {
 
     @Test
     fun reduceCharactersAsWordTest(){
-        val wordEncoding = GodelEncoding(CharDomain())
+        val wordEncoding = GodelEncoding(SimpleCharDomain())
 
 //        val wordChars = "word".toCharArray()
         val wordChars = CharArray(5)
@@ -121,7 +117,7 @@ class CharEncodingTest {
     }
     @Test
     fun lessSimpleWordContainsCharTest(){
-        val wordEncoding = GodelEncoding(CharDomain())
+        val wordEncoding = GodelEncoding(SimpleCharDomain())
 
         val word = "large"
 
@@ -137,15 +133,43 @@ class CharEncodingTest {
         }
     }
     @Test
+    fun simpleChars(){
+        val ch = SimpleCharDomain()
+    }
+    @Test
     fun lessSimpleWordContainsWordTest(){
-        val wordEncoding = GodelEncoding(CharDomain())
+        val wordEncoding = WordEncoding()
 
         val word = "large"
 
-        val hash = wordEncoding.encode(word.asIterable())
+        val hash = wordEncoding.encode(word)
 
-        assertTrue {
-            wordEncoding.contains(hash, "la".asIterable())
-        }
+        println("hash:")
+        println(hash)
+        assertTrue { wordEncoding.contains(hash, "la") }
+        assertTrue { wordEncoding.contains(hash, "large") }
+        assertTrue { wordEncoding.contains(hash, "arge") }
+        assertFalse { wordEncoding.contains(hash, "al") }
+        assertFalse { wordEncoding.contains(hash, "ral") }
+        assertFalse { wordEncoding.contains(hash, "egral") }
+        assertFalse { wordEncoding.contains(hash, "egra") }
+        // order is not being preserved as it should
+        // e^1 * r^2 * g^3 is a factor of l^1 * a^2 * r^3 * g^4 * e^5
+
+        // specifically
+        // (r^3 * g^4 * e^5) % (e^1 * r^2 * g^3) == 0
+        // is this an intended consequence?
+        // really any exponent would still be.
+        // Why is the *measure* function only in the power?
+
+        // Perhaps this measure function is what must be identical (and previously known?)
+        // in order to determine equality.
+
+        // unless there exists an alternative method of detecting the relation between
+        // sets (in this case a word), where the only commonality is the base primes (characters)
+        assertFalse { wordEncoding.contains(hash, "erg") }
+        assertFalse { wordEncoding.contains(hash, "egr") }
+        assertFalse { wordEncoding.contains(hash, "gre") }
+        assertFalse { wordEncoding.contains(hash, "le") }
     }
 }

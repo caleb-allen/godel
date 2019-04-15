@@ -6,13 +6,13 @@ class GodelEncoding<T>(
     private val domain: GodelDomain<T>
 ){
     companion object {
-        private val primes = CommonsPrime()
+        val primes = CommonsPrime()
     }
     fun encode(entity: T): Long {
-        // get the index of the entity in its domain
-        val index = domain.index(entity)
+        // get the encode of the entity in its domain
+        val index = domain.encode(entity)
 
-        // the index of this entity is the nth prime, where n is the index
+        // the encode of this entity is the nth prime, where n is the encode
         // in the domain
         val nthPrime = primes.prime(index)
         println("$entity: fetching nth prime in domain ${domain.name()}. N = $index. Hash is $nthPrime")
