@@ -1,7 +1,7 @@
 # Godel
 
 This repository is a proof of concept of an implementation of [Godel Hashes](https://doi.org/10.1109/SCAM.2014.40),
-a perfect and compact hash which preserves informational structure.
+a perfect and compact hash which preserves structural information.
 
 
 Here, a simple encoding of alphabetical characters is used as the prime basis for a countable total order.
