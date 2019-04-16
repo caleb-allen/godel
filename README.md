@@ -10,7 +10,7 @@ E.g.
 `'a' = 1, 'b' = 2 ... 'z' = 26`
 
 
-For encoding purposes, a "word", or limited set of characters, is defined as a function of the character domain
+For encoding purposes, a "word", or sequence of characters, is defined as a function of the character domain
 and a range of integers which indicate an index in the word.
 
 E.g.
