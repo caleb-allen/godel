@@ -1,12 +1,5 @@
 package main
 
-//interface GodelHash {
-//    fun divisibleBy(hash: GodelHash): Boolean
-//}
-
-interface Proposition
-
-
 /*To construct the Godel encode of a set, first assume that ¨
 every potential element has been assigned a unique prime
 number; then compute the product of the primes assigned to
@@ -97,8 +90,3 @@ The document encode is the Nth item in the document set, where N = SE.
 
 
 */
-
-interface Blob {
-    fun contains(blob: Blob): Boolean
-    fun equals(blob: Blob): Boolean
-}

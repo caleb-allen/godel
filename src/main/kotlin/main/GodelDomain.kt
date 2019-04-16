@@ -7,17 +7,10 @@ interface GodelDomain<in T> {
      *
      * Index must be perfect and repeatable
      */
-    abstract fun encode(element: T): Int
+    fun encode(element: T): Int
 
 //    abstract fun measure(elem)
 
-    abstract fun name(): String
-
-}
-
-/**
- * T is parent domain type
- */
-abstract class GodelSubDomain{
+    fun name(): String
 
 }

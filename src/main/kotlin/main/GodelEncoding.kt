@@ -21,11 +21,6 @@ class GodelEncoding<T>(
         return nthPrime.toLong()
     }
 
-//    /**
-//     * encode the entity as a long
-//     */
-//    fun encodeLong(entity: T): Long = encode(entity).toLong()
-
     fun encode(entities: Iterable<T>): Long =
             entities.map {
                 encode(it)
