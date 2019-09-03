@@ -26,3 +26,5 @@ f(4) = 'o'
 
 Using this functional interpretation of a word, we can use Definition V.3 of the paper to compute an order-preserving
 Godel Hash of any word.
+
+As demonstrated in the linked paper, Godel Hashes are subject to all set operations. This allows efficient search of arbitrary data using the hash itself, **not** the data.
