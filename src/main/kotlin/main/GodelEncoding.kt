@@ -9,10 +9,10 @@ class GodelEncoding<T>(
         val primes = CommonsPrime()
     }
     fun encode(entity: T): Long {
-        // get the encode of the entity in its domain
+        // get the index of the entity in its domain
         val index = domain.encode(entity)
 
-        // the encode of this entity is the nth prime, where n is the encode
+        // the index of this entity is the nth prime, where n is the index
         // in the domain
         val nthPrime = primes.prime(index)
         println("$entity: fetching nth prime in domain ${domain.name()}. N = $index. Hash is $nthPrime")
